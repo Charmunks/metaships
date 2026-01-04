@@ -15,6 +15,10 @@ const { getEvents, getShips } = require("./unified");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
+
 nunjucks.configure(path.join(__dirname, "views"), {
   autoescape: true,
   express: app,
