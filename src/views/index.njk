@@ -1,0 +1,42 @@
+{% extends "base.njk" %}
+
+{% block content %}
+<h1> Meta Ship Rate </h1>
+
+<div class="user-status">
+  {% if user %}
+  <p>Welcome, {{ user.email }}! <a href="/auth/logout">Logout</a></p>
+  {% else %}
+  <a href="/auth/page">Login</a>
+  {% endif %}
+</div>
+
+<h2>Events</h2>
+<input type="text" id="project-search" class="search-bar" placeholder="Search events...">
+<ul class="projects-list">
+  {% for project in projects %}
+  <li><a href="/event/{{ project.name | urlencode }}">{{ project.name }}</a></li>
+  {% else %}
+  <li>No events found</li>
+  {% endfor %}
+</ul>
+
+<script>
+  document.getElementById('project-search').addEventListener('input', function(e) {
+    const query = e.target.value.toLowerCase();
+    const items = document.querySelectorAll('.projects-list li');
+    items.forEach(item => {
+      const name = item.textContent.toLowerCase();
+      item.style.display = name.includes(query) ? '' : 'none';
+    });
+  });
+</script>
+
+<section class="how-it-works">
+  <h2>How This Works</h2>
+  <h3>Getting Meta Post Count</h3>
+  <p>First, we use a Slack Bot to search meta for all posts containing the event name. Next, we put the list of posts into AI and ask it to determine which posts are actually about the event and which are just offhand mentions.</p>
+  <h3>Getting YSWS names and ships.</h3>
+  <p>Hack Club actually provides an API for YSWS data! It's called Airbridge. With Airbridge, it just takes a simple API request to get event names and ship counts.
+</section>
+{% endblock %}

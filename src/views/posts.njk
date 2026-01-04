@@ -1,0 +1,27 @@
+{% extends "base.njk" %}
+
+{% block title %}{{ eventName }} Meta Posts - Meta Ship Rate{% endblock %}
+
+{% block content %}
+<div class="list-page">
+  <h1>{{ eventName }} Meta Posts</h1>
+  
+  {% if posts.length > 0 %}
+    <div class="list-container">
+      {% for post in posts %}
+        <div class="list-item">
+          <div class="list-item-header">
+            <a href="{{ post.permalink }}" target="_blank" class="list-item-title">View in Slack</a>
+            <span class="list-item-creator">by {{ post.username or 'Unknown' }}</span>
+          </div>
+          <p class="list-item-description">{{ post.text | truncate(300) }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="no-results">No meta posts found for this event.</p>
+  {% endif %}
+  
+  <a href="/event/{{ eventName }}" class="back-link">← Back to {{ eventName }}</a>
+</div>
+{% endblock %}

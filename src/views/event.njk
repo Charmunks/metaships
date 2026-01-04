@@ -1,0 +1,50 @@
+{% extends "base.njk" %}
+
+{% block title %}{{ eventName }} - Meta Ship Rate{% endblock %}
+
+{% block content %}
+<div class="event-page">
+  <h1>{{ eventName }}</h1>
+  
+  <div class="stats">
+    <div class="stat-card full-width">
+      <span class="stat-label">Ships:</span>
+      <span class="stat-value">{{ ships }}</span>
+    </div>
+    
+    <div class="stat-card">
+      <span class="stat-label">Relevant Meta Posts:</span>
+      <span class="stat-value">{{ metaPosts }}</span>
+      <span class="stat-footer">Posts put through AI to only include posts where this event is the main subject of the post.</span>
+    </div>
+    
+    <a href="/event/{{ eventName }}/posts" class="stat-card clickable">
+      <span class="stat-label">Total Meta Posts:</span>
+      <span class="stat-value">{{ rawMetaPosts }}</span>
+      <span class="stat-footer">All posts mentioning "{{ eventName }}". Click to view details.</span>
+    </a>
+    
+    <div class="stat-card rate full-width">
+      <span class="stat-label">Rate:</span>
+      <span class="stat-value">
+        {% if useAll %}
+          {{ rate }} ships per each 1 meta post
+        {% elif metaPosts > 0 %}
+          {{ rate }} ships per each 1 meta post
+        {% else %}
+          No relevant meta posts found
+        {% endif %}
+      </span>
+      {% if useAll %}
+        <span class="stat-footer">Based on all meta posts. <a href="/event/{{ eventName }}" class="toggle-link">Use AI-filtered posts instead</a></span>
+      {% elif metaPosts == 0 and rawMetaPosts > 0 %}
+        <span class="stat-footer">AI found no relevant posts. <a href="/event/{{ eventName }}?useAll=true" class="toggle-link">Use all posts instead</a></span>
+      {% else %}
+        <span class="stat-footer">Based on AI-filtered relevant meta posts</span>
+      {% endif %}
+    </div>
+  </div>
+  
+  <a href="/" class="back-link">← Back to all events</a>
+</div>
+{% endblock %}
