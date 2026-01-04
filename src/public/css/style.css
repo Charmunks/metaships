@@ -166,6 +166,11 @@ main {
   color: var(--ctp-subtext0);
 }
 
+.login-note {
+  font-size: 0.85rem;
+  margin-top: 1.5rem;
+}
+
 .btn {
   display: inline-block;
   padding: 0.75rem 1.5rem;
